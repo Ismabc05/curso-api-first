@@ -3,7 +3,7 @@ info:
   title: API First
   version: 1.0.0
   description: API First
-server:
+servers:
   - url: http://localhost:3000
 paths:
   /hello:
@@ -16,7 +16,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HelloResponse'
+  /:
+    get:
+      summary: Hola mundo
+      responses: 
+        '200':
+          description: A succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HolaResponse'
 components:
   schemas:
     HelloResponse:
+      type: object
+    HolaResponse:
       type: object
