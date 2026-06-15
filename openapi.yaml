@@ -98,7 +98,7 @@ components:
             - score: 5
               comment: "Excelente calidad de café y muy fácil de usar."
             - score: 4
-              comment: "Buen producto, aunque un poco ruidoso al moler." 
+              comment: "Buen producto, aunque un poco ruidoso al moler."
       example:
         name: "Cafetera Espresso Pro"
         description: "Cafetera espresso automática de 15 bares con molinillo integrado y depósito de agua de 1.5 litros."
@@ -118,9 +118,40 @@ components:
             comment: "Excelente calidad de café y muy fácil de usar."
           - score: 4
             comment: "Buen producto, aunque un poco ruidoso al moler."
+    AuthRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: "joe@example.com"
+        password:
+          type: string
+          minLength: 6
+          example: "password123"
+    AuthResponse:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "Autenticación mediante token JWT. Debe incluirse en el encabezado Authorization."
+security:
+  - JWT: []
 paths:
   /hello:
     get:
+      security: []
       summary: Hello World
       responses:
         '200':
@@ -129,6 +160,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HelloResponse'
+  /auth/login:
+    post:
+      tags:
+        - Users
+      security: []
+      summary: Autenticar usuario y obtener token JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+            examples:
+              loginCredentials:
+                summary: Credenciales válidas de usuario
+                value:
+                  email: "joe@example.com"
+                  password: "password123"
+      responses:
+        '200':
+          description: Token JWT generado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+              examples:
+                authSuccess:
+                  summary: Autenticación exitosa
+                  value:
+                    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        '401':
+          description: Credenciales inválidas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                invalidCredentials:
+                  summary: Credenciales inválidas
+                  value:
+                    message: "Email o contraseña incorrectos"
   /products:
     post:
       tags:

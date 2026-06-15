@@ -2,8 +2,10 @@ const express = require("express")
 const swaggerUI = require("swagger-ui-express")
 const YAML = require("yamljs")
 const OpenAPiValidator = require("express-openapi-validator")
+const jwt = require("jsonwebtoken")
 const app = express()
 const port = 3000
+const JWT_SECRET = process.env.JWT_SECRET || "my_super_secret_key"
 
 const swaggerDocument = YAML.load("./openapi.yaml") // Uso la librería yamljs para leer un archivo YAML.
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument)) // Esto configura una ruta en tu servidor Express donde podras ver ese archivo yaml
@@ -46,21 +48,41 @@ app.post("/v1/users", (req, res) => {
     res.status(201).json(newUser)
 })
 
+app.post("/v1/auth/login", (req, res) => {
+    const { email, password } = req.body
+    const user = users.find((u) => u.email === email && u.password === password)
+
+    if (!user) {
+        return res.status(401).json({ message: "Email o contraseña incorrectos" })
+    }
+
+    const token = jwt.sign(
+        { sub: user.id, email: user.email, name: user.name },
+        JWT_SECRET,
+        { expiresIn: "1h" }
+    )
+
+    res.json({ token })
+})
+
 const users = [{
     id: 1,
     name: "John Doe",
     age: 30,
     email: "joe@example.com",
+    password: "password123"
 }, {
     id: 2,
     name: "Jane Smith",
     age: 25,
-    email: "jane@example.com"
+    email: "jane@example.com",
+    password: "qwerty123"
 }, {
     id: 3,
     name: "Bob Johnson",
     age: 40,
-    email: "bob@example.com"
+    email: "bob@example.com",
+    password: "pass456"
 }]
 
 const products = [{
