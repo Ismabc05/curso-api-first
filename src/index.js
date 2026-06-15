@@ -57,7 +57,7 @@ const users = [{
     name: "Bob Johnson",
     age: 40,
     email: "bob@example.com"
-}] // este array es para simular una base de datos.
+}]
 
 app.get("/users/:id", (req, res) => {
     const id = req.params.id
@@ -93,6 +93,122 @@ app.post("/users/:id", (req, res) => {
 
     res.json(updatedUser)
 })
+
+const products = [{
+    id: 1,
+    name: "Laptop",
+    description: "Laptop de alto rendimiento",
+    price: 999.99,
+    category: "Electronics",
+    tags: ["portable", "gaming"],
+    inStock: true,
+    specifications: {
+        processor: "Intel i7",
+        ram: "16GB",
+        storage: "512GB SSD"
+    },
+    ratings: [{
+        score: 5,
+        comment: "Excelente producto"
+    }]
+}, {
+    id: 2,
+    name: "JavaScript Guide",
+    description: "Guía completa de JavaScript",
+    price: 29.99,
+    category: "Books",
+    tags: ["programming", "tutorial"],
+    inStock: true,
+    specifications: {},
+    ratings: [{
+        score: 4,
+        comment: "Muy útil"
+    }]
+}]
+
+app.post("/products", (req, res) => {
+    const { name, price, category, description, tags, inStock, specifications, ratings } = req.body
+
+    const newProduct = {
+        id: Math.max(...products.map(p => p.id), 0) + 1,
+        name,
+        price,
+        category,
+        description,
+        tags,
+        inStock,
+        specifications,
+        ratings
+    }
+
+    products.push(newProduct)
+    res.status(201).json(newProduct)
+})
+
+app.get("/products", (req, res) => {
+    res.json(products)
+})
+
+app.get("/products/:id", (req, res) => {
+    const id = parseInt(req.params.id, 10)
+    const product = products.find((p) => p.id === id)
+
+    if (!product) {
+        return res.status(404).json({ message: "Producto no encontrado" })
+    }
+
+    res.json(product)
+})
+
+app.put("/products/:id", (req, res) => {
+    const id = parseInt(req.params.id, 10)
+    const productIndex = products.findIndex((p) => p.id === id)
+
+    if (productIndex === -1) {
+        return res.status(404).json({ message: "Producto no encontrado" })
+    }
+
+    const { name, price, category, description, tags, inStock, specifications, ratings } = req.body
+
+    const updatedProduct = {
+        id,
+        name,
+        price,
+        category,
+        description,
+        tags,
+        inStock,
+        specifications,
+        ratings
+    }
+
+    products[productIndex] = updatedProduct
+    res.json(updatedProduct)
+})
+
+app.delete("/products/:id", (req, res) => {
+    const id = parseInt(req.params.id, 10)
+    const productIndex = products.findIndex((p) => p.id === id)
+
+    if (productIndex === -1) {
+        return res.status(404).json({ message: "Producto no encontrado" })
+    }
+
+    products.splice(productIndex, 1)
+    res.status(204).send()
+})
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
