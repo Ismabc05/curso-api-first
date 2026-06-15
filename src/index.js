@@ -33,7 +33,7 @@ app.get("/v2/hello", (req, res ) => {
     res.json({message: "Hello world v2"})
 })
 
-app.post("/v1/users", (req, res) => {
+app.post("/users", (req, res) => {
     const { name, age, email } = req.body
 
     const newUser = {
