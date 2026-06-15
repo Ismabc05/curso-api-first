@@ -25,11 +25,15 @@ app.use((err, req, res, next) => { // este middleware nos trae informacion sobre
     });
 });
 
-app.get("/hello", (req, res ) => {
+app.get("/v1/hello", (req, res ) => {
     res.json({message: "Hello world"})
 })
 
-app.post("/users", (req, res) => {
+app.get("/v2/hello", (req, res ) => {
+    res.json({message: "Hello world v2"})
+})
+
+app.post("/v1/users", (req, res) => {
     const { name, age, email } = req.body
 
     const newUser = {
@@ -57,6 +61,38 @@ const users = [{
     name: "Bob Johnson",
     age: 40,
     email: "bob@example.com"
+}]
+
+const products = [{
+    id: 1,
+    name: "Laptop",
+    description: "Laptop de alto rendimiento",
+    price: 999.99,
+    category: "Electronics",
+    tags: ["portable", "gaming"],
+    inStock: true,
+    specifications: {
+        processor: "Intel i7",
+        ram: "16GB",
+        storage: "512GB SSD"
+    },
+    ratings: [{
+        score: 5,
+        comment: "Excelente producto"
+    }]
+}, {
+    id: 2,
+    name: "JavaScript Guide",
+    description: "Guía completa de JavaScript",
+    price: 29.99,
+    category: "Books",
+    tags: ["programming", "tutorial"],
+    inStock: true,
+    specifications: {},
+    ratings: [{
+        score: 4,
+        comment: "Muy útil"
+    }]
 }]
 
 app.get("/users/:id", (req, res) => {
@@ -93,38 +129,6 @@ app.post("/users/:id", (req, res) => {
 
     res.json(updatedUser)
 })
-
-const products = [{
-    id: 1,
-    name: "Laptop",
-    description: "Laptop de alto rendimiento",
-    price: 999.99,
-    category: "Electronics",
-    tags: ["portable", "gaming"],
-    inStock: true,
-    specifications: {
-        processor: "Intel i7",
-        ram: "16GB",
-        storage: "512GB SSD"
-    },
-    ratings: [{
-        score: 5,
-        comment: "Excelente producto"
-    }]
-}, {
-    id: 2,
-    name: "JavaScript Guide",
-    description: "Guía completa de JavaScript",
-    price: 29.99,
-    category: "Books",
-    tags: ["programming", "tutorial"],
-    inStock: true,
-    specifications: {},
-    ratings: [{
-        score: 4,
-        comment: "Muy útil"
-    }]
-}]
 
 app.post("/products", (req, res) => {
     const { name, price, category, description, tags, inStock, specifications, ratings } = req.body
@@ -212,5 +216,7 @@ app.delete("/products/:id", (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
+    console.log(`Swagger UI available at http://localhost:${port}/v1`)
+    console.log(`Swagger UI available at http://localhost:${port}/v2`)
 })
 
