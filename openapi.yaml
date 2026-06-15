@@ -32,6 +32,11 @@ components:
   schemas:
     HelloResponse:
       type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: "Hello world"
     Product:
       type: object
       required:
@@ -43,27 +48,37 @@ components:
           type: string
           minLength: 2
           maxLength: 40
+          example: "Cafetera Espresso Pro"
         description:
           type: string
           maxLength: 500
+          example: "Cafetera espresso automática de 15 bares con molinillo integrado y depósito de agua de 1.5 litros."
         price:
           type: number
           minimum: 0
           multipleOf: 0.01
+          example: 129.99
         category:
           type: string
           enum: [Electronics, Books, Clothes, Food]
+          example: Electronics
         tags:
           type: array
           items:
             type: string
           minItems: 1
+          example: ["coffee", "kitchen", "premium"]
         inStock:
           type: boolean
+          example: true
         specifications:
           type: object
           additionalProperties:
             type: string
+          example:
+            power: "1450W"
+            capacity: "1.5L"
+            pressure: "15 bar"
         ratings:
           type: array
           items:
@@ -79,6 +94,30 @@ components:
               comment:
                 type: string
                 maxLength: 200
+          example:
+            - score: 5
+              comment: "Excelente calidad de café y muy fácil de usar."
+            - score: 4
+              comment: "Buen producto, aunque un poco ruidoso al moler." 
+      example:
+        name: "Cafetera Espresso Pro"
+        description: "Cafetera espresso automática de 15 bares con molinillo integrado y depósito de agua de 1.5 litros."
+        price: 129.99
+        category: Electronics
+        tags:
+          - "coffee"
+          - "kitchen"
+          - "premium"
+        inStock: true
+        specifications:
+          power: "1450W"
+          capacity: "1.5L"
+          pressure: "15 bar"
+        ratings:
+          - score: 5
+            comment: "Excelente calidad de café y muy fácil de usar."
+          - score: 4
+            comment: "Buen producto, aunque un poco ruidoso al moler."
 paths:
   /hello:
     get:
@@ -101,6 +140,26 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Product'
+            examples:
+              newProduct:
+                summary: Nuevo producto de tienda real
+                value:
+                  name: "Audífonos inalámbricos NoiseFree"
+                  description: "Audífonos bluetooth con cancelación de ruido, batería de 30 horas y diseño ergonómico."
+                  price: 79.99
+                  category: Electronics
+                  tags:
+                    - "audio"
+                    - "wireless"
+                    - "travel"
+                  inStock: true
+                  specifications:
+                    battery: "30h"
+                    color: "Negro"
+                    connectivity: "Bluetooth 5.2"
+                  ratings:
+                    - score: 5
+                      comment: "Muy cómodos y el sonido es claro."
       responses:
         '201':
           description: Producto creado
@@ -108,6 +167,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
+              examples:
+                createdProduct:
+                  summary: Producto creado exitosamente
+                  value:
+                    name: "Audífonos inalámbricos NoiseFree"
+                    description: "Audífonos bluetooth con cancelación de ruido, batería de 30 horas y diseño ergonómico."
+                    price: 79.99
+                    category: Electronics
+                    tags:
+                      - "audio"
+                      - "wireless"
+                      - "travel"
+                    inStock: true
+                    specifications:
+                      battery: "30h"
+                      color: "Negro"
+                      connectivity: "Bluetooth 5.2"
+                    ratings:
+                      - score: 5
+                        comment: "Muy cómodos y el sonido es claro."
         '400':
           description: Datos inválidos
           content:
@@ -117,6 +196,11 @@ paths:
                 properties:
                   message:
                     type: string
+              examples:
+                invalidProduct:
+                  summary: Ejemplo de error de validación
+                  value:
+                    message: "El campo price debe ser un número mayor o igual a 0."
     get:
       tags:
         - Products
@@ -130,6 +214,41 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
+              examples:
+                productList:
+                  summary: Lista de productos disponibles
+                  value:
+                    - name: "Audífonos inalámbricos NoiseFree"
+                      description: "Audífonos bluetooth con cancelación de ruido, batería de 30 horas y diseño ergonómico."
+                      price: 79.99
+                      category: Electronics
+                      tags:
+                        - "audio"
+                        - "wireless"
+                        - "travel"
+                      inStock: true
+                      specifications:
+                        battery: "30h"
+                        color: "Negro"
+                        connectivity: "Bluetooth 5.2"
+                      ratings:
+                        - score: 5
+                          comment: "Muy cómodos y el sonido es claro."
+                    - name: "Mochila Urbana Flex"
+                      description: "Mochila resistente al agua con compartimento para portátil y múltiples bolsillos organizadores."
+                      price: 59.9
+                      category: Clothes
+                      tags:
+                        - "travel"
+                        - "office"
+                      inStock: true
+                      specifications:
+                        material: "Nylon"
+                        capacity: "20L"
+                        color: "Gris"
+                      ratings:
+                        - score: 4
+                          comment: "Buena capacidad y estilo moderno."
   /products/{id}:
     get:
       tags:
@@ -148,6 +267,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
+              examples:
+                foundProduct:
+                  summary: Producto encontrado
+                  value:
+                    name: "Audífonos inalámbricos NoiseFree"
+                    description: "Audífonos bluetooth con cancelación de ruido, batería de 30 horas y diseño ergonómico."
+                    price: 79.99
+                    category: Electronics
+                    tags:
+                      - "audio"
+                      - "wireless"
+                      - "travel"
+                    inStock: true
+                    specifications:
+                      battery: "30h"
+                      color: "Negro"
+                      connectivity: "Bluetooth 5.2"
+                    ratings:
+                      - score: 5
+                        comment: "Muy cómodos y el sonido es claro."
         '404':
           description: Producto no encontrado
           content:
@@ -157,7 +296,12 @@ paths:
                 properties:
                   message:
                     type: string
-    'put':
+              examples:
+                notFound:
+                  summary: Producto no encontrado
+                  value:
+                    message: "Producto no encontrado"
+    put:
       summary: Actualizar producto por id
       tags:
         - Products
@@ -173,6 +317,26 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Product'
+            examples:
+              updateProduct:
+                summary: Actualizar producto
+                value:
+                  name: "Audífonos inalámbricos NoiseFree"
+                  description: "Audífonos bluetooth con cancelación de ruido mejorados con micrófono."
+                  price: 84.99
+                  category: Electronics
+                  tags:
+                    - "audio"
+                    - "wireless"
+                    - "travel"
+                  inStock: true
+                  specifications:
+                    battery: "30h"
+                    color: "Negro"
+                    connectivity: "Bluetooth 5.2"
+                  ratings:
+                    - score: 5
+                      comment: "Mejorados tras la última actualización."
       responses:
         '200':
           description: Producto actualizado
@@ -180,6 +344,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
+              examples:
+                updatedProduct:
+                  summary: Producto actualizado
+                  value:
+                    name: "Audífonos inalámbricos NoiseFree"
+                    description: "Audífonos bluetooth con cancelación de ruido mejorados con micrófono."
+                    price: 84.99
+                    category: Electronics
+                    tags:
+                      - "audio"
+                      - "wireless"
+                      - "travel"
+                    inStock: true
+                    specifications:
+                      battery: "30h"
+                      color: "Negro"
+                      connectivity: "Bluetooth 5.2"
+                    ratings:
+                      - score: 5
+                        comment: "Mejorados tras la última actualización."
         '404':
           description: Producto no encontrado
           content:
@@ -189,7 +373,12 @@ paths:
                 properties:
                   message:
                     type: string
-    'delete':
+              examples:
+                notFound:
+                  summary: Producto no encontrado
+                  value:
+                    message: "Producto no encontrado"
+    delete:
       summary: Eliminar producto por id
       tags:
         - Products
@@ -211,6 +400,11 @@ paths:
                 properties:
                   message:
                     type: string
+              examples:
+                notFound:
+                  summary: Producto no encontrado
+                  value:
+                    message: "Producto no encontrado"
   /users:
     post:
       tags:
