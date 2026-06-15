@@ -33,7 +33,7 @@ app.get("/v2/hello", (req, res ) => {
     res.json({message: "Hello world v2"})
 })
 
-app.post("/users", (req, res) => {
+app.post("/v1/users", (req, res) => {
     const { name, age, email } = req.body
 
     const newUser = {
@@ -95,7 +95,7 @@ const products = [{
     }]
 }]
 
-app.get("/users/:id", (req, res) => {
+app.get("/v1/users/:id", (req, res) => {
     const id = req.params.id
     const user = users.find((u) => u.id === id)
 
@@ -109,7 +109,7 @@ app.get("/users/:id", (req, res) => {
     })
 })
 
-app.post("/users/:id", (req, res) => {
+app.post("/v1/users/:id", (req, res) => {
     const id = req.params.id
     const { name, age, email } = req.body
     const existingUser = users.findIndex((u) => u.id === id)
@@ -130,7 +130,7 @@ app.post("/users/:id", (req, res) => {
     res.json(updatedUser)
 })
 
-app.post("/products", (req, res) => {
+app.post("/v1/products", (req, res) => {
     const { name, price, category, description, tags, inStock, specifications, ratings } = req.body
 
     const newProduct = {
@@ -149,11 +149,11 @@ app.post("/products", (req, res) => {
     res.status(201).json(newProduct)
 })
 
-app.get("/products", (req, res) => {
+app.get("/v1/products", (req, res) => {
     res.json(products)
 })
 
-app.get("/products/:id", (req, res) => {
+app.get("/v1/products/:id", (req, res) => {
     const id = parseInt(req.params.id, 10)
     const product = products.find((p) => p.id === id)
 
@@ -164,7 +164,7 @@ app.get("/products/:id", (req, res) => {
     res.json(product)
 })
 
-app.put("/products/:id", (req, res) => {
+app.put("/v1/products/:id", (req, res) => {
     const id = parseInt(req.params.id, 10)
     const productIndex = products.findIndex((p) => p.id === id)
 
@@ -190,7 +190,7 @@ app.put("/products/:id", (req, res) => {
     res.json(updatedProduct)
 })
 
-app.delete("/products/:id", (req, res) => {
+app.delete("/v1/products/:id", (req, res) => {
     const id = parseInt(req.params.id, 10)
     const productIndex = products.findIndex((p) => p.id === id)
 
