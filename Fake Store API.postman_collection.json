@@ -1,0 +1,1202 @@
+{
+  "info": {
+    "_postman_id": "c1b0376c-bb5e-439c-8f19-e214ec5062c5",
+    "name": "Fake Store API",
+    "description": "This is a sample FakeAPI Store Server based on the OpenAPI 3.X specification. You can find out more about Swagger at https://swagger.io. In the third iteration of the pet store, we've switched to the design first approach. You can now help us improve the API whether it's by making changes to the definition itself or to the code. That way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\nSome useful links:\n- [The Fake Store repository](https://github.com/Ismabc05/curso-api-first)\n\nContact Support:\n Name: Ismael Bedmar\n Email: ismaelbedmarcejas@gmail.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54125135"
+  },
+  "item": [
+    {
+      "name": "hello",
+      "item": [
+        {
+          "name": "Hello World",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "})",
+                  "",
+                  "pm.test('Response time is less than 2000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "})",
+                  "",
+                  "pm.test('Response has a body', function () {",
+                  "    pm.response.to.have.body;",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/hello",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hello"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "A succesful response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/hello",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "hello"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Hello world\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Obtener producto por id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "})",
+                      "",
+                      "pm.test('Response time is less than 2000ms', function () {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                      "})",
+                      "",
+                      "pm.test('Response is JSON', function () {",
+                      "    pm.response.to.be.json;",
+                      "})",
+                      "",
+                      "pm.test('Response has id field', function () {",
+                      "    const jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('id');",
+                      "})"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "925"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Producto encontrado",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "925"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"name\": \"Audífonos inalámbricos NoiseFree\",\n  \"description\": \"Audífonos bluetooth con cancelación de ruido, batería de 30 horas y diseño ergonómico.\",\n  \"price\": 79.99,\n  \"category\": \"Electronics\",\n  \"tags\": [\n    \"audio\",\n    \"wireless\",\n    \"travel\"\n  ],\n  \"inStock\": true,\n  \"specifications\": {\n    \"battery\": \"30h\",\n    \"color\": \"Negro\",\n    \"connectivity\": \"Bluetooth 5.2\"\n  },\n  \"ratings\": [\n    {\n      \"score\": 5,\n      \"comment\": \"Muy cómodos y el sonido es claro.\"\n    }\n  ]\n}"
+                },
+                {
+                  "name": "Producto no encontrado",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "925"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"message\": \"Producto no encontrado\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Actualizar producto por id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "})",
+                      "",
+                      "pm.test('Response time is less than 2000ms', function () {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                      "})",
+                      "",
+                      "pm.test('Response is JSON', function () {",
+                      "    pm.response.to.be.json;",
+                      "})",
+                      "",
+                      "pm.test('Response has id field', function () {",
+                      "    const jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('id');",
+                      "})"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Cafetera Espresso Pro\",\n  \"description\": \"Cafetera espresso automática de 15 bares con molinillo integrado y depósito de agua de 1.5 litros.\",\n  \"price\": 129.99,\n  \"category\": \"Electronics\",\n  \"tags\": [\n    \"coffee\",\n    \"kitchen\",\n    \"premium\"\n  ],\n  \"inStock\": true,\n  \"specifications\": {\n    \"power\": \"1450W\",\n    \"capacity\": \"1.5L\",\n    \"pressure\": \"15 bar\"\n  },\n  \"ratings\": [\n    {\n      \"score\": 5,\n      \"comment\": \"Excelente calidad de café y muy fácil de usar.\"\n    },\n    {\n      \"score\": 4,\n      \"comment\": \"Buen producto, aunque un poco ruidoso al moler.\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/products/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "925"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Producto actualizado",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Audífonos inalámbricos NoiseFree\",\n  \"description\": \"Audífonos bluetooth con cancelación de ruido mejorados con micrófono.\",\n  \"price\": 84.99,\n  \"category\": \"Electronics\",\n  \"tags\": [\n    \"audio\",\n    \"wireless\",\n    \"travel\"\n  ],\n  \"inStock\": true,\n  \"specifications\": {\n    \"battery\": \"30h\",\n    \"color\": \"Negro\",\n    \"connectivity\": \"Bluetooth 5.2\"\n  },\n  \"ratings\": [\n    {\n      \"score\": 5,\n      \"comment\": \"Mejorados tras la última actualización.\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "925"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"name\": \"Audífonos inalámbricos NoiseFree\",\n  \"description\": \"Audífonos bluetooth con cancelación de ruido mejorados con micrófono.\",\n  \"price\": 84.99,\n  \"category\": \"Electronics\",\n  \"tags\": [\n    \"audio\",\n    \"wireless\",\n    \"travel\"\n  ],\n  \"inStock\": true,\n  \"specifications\": {\n    \"battery\": \"30h\",\n    \"color\": \"Negro\",\n    \"connectivity\": \"Bluetooth 5.2\"\n  },\n  \"ratings\": [\n    {\n      \"score\": 5,\n      \"comment\": \"Mejorados tras la última actualización.\"\n    }\n  ]\n}"
+                },
+                {
+                  "name": "Producto no encontrado",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Audífonos inalámbricos NoiseFree\",\n  \"description\": \"Audífonos bluetooth con cancelación de ruido mejorados con micrófono.\",\n  \"price\": 84.99,\n  \"category\": \"Electronics\",\n  \"tags\": [\n    \"audio\",\n    \"wireless\",\n    \"travel\"\n  ],\n  \"inStock\": true,\n  \"specifications\": {\n    \"battery\": \"30h\",\n    \"color\": \"Negro\",\n    \"connectivity\": \"Bluetooth 5.2\"\n  },\n  \"ratings\": [\n    {\n      \"score\": 5,\n      \"comment\": \"Mejorados tras la última actualización.\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "925"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"message\": \"Producto no encontrado\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Eliminar producto por id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "})",
+                      "",
+                      "pm.test('Response time is less than 2000ms', function () {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                      "})",
+                      "",
+                      "pm.test('Response is JSON', function () {",
+                      "    pm.response.to.be.json;",
+                      "})"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "925"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Producto eliminado",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "925"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                },
+                {
+                  "name": "Producto no encontrado",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "925"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"message\": \"Producto no encontrado\"\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Crear un nuevo producto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "})",
+                  "",
+                  "pm.test('Response time is less than 2000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "})",
+                  "",
+                  "pm.test('Response is JSON', function () {",
+                  "    pm.response.to.be.json;",
+                  "})",
+                  "",
+                  "pm.test('Response has id field', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cafetera Espresso Pro\",\n  \"description\": \"Cafetera espresso automática de 15 bares con molinillo integrado y depósito de agua de 1.5 litros.\",\n  \"price\": 129.99,\n  \"category\": \"Electronics\",\n  \"tags\": [\n    \"coffee\",\n    \"kitchen\",\n    \"premium\"\n  ],\n  \"inStock\": true,\n  \"specifications\": {\n    \"power\": \"1450W\",\n    \"capacity\": \"1.5L\",\n    \"pressure\": \"15 bar\"\n  },\n  \"ratings\": [\n    {\n      \"score\": 5,\n      \"comment\": \"Excelente calidad de café y muy fácil de usar.\"\n    },\n    {\n      \"score\": 4,\n      \"comment\": \"Buen producto, aunque un poco ruidoso al moler.\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Producto creado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Audífonos inalámbricos NoiseFree\",\n  \"description\": \"Audífonos bluetooth con cancelación de ruido, batería de 30 horas y diseño ergonómico.\",\n  \"price\": 79.99,\n  \"category\": \"Electronics\",\n  \"tags\": [\n    \"audio\",\n    \"wireless\",\n    \"travel\"\n  ],\n  \"inStock\": true,\n  \"specifications\": {\n    \"battery\": \"30h\",\n    \"color\": \"Negro\",\n    \"connectivity\": \"Bluetooth 5.2\"\n  },\n  \"ratings\": [\n    {\n      \"score\": 5,\n      \"comment\": \"Muy cómodos y el sonido es claro.\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/products",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"name\": \"Audífonos inalámbricos NoiseFree\",\n  \"description\": \"Audífonos bluetooth con cancelación de ruido, batería de 30 horas y diseño ergonómico.\",\n  \"price\": 79.99,\n  \"category\": \"Electronics\",\n  \"tags\": [\n    \"audio\",\n    \"wireless\",\n    \"travel\"\n  ],\n  \"inStock\": true,\n  \"specifications\": {\n    \"battery\": \"30h\",\n    \"color\": \"Negro\",\n    \"connectivity\": \"Bluetooth 5.2\"\n  },\n  \"ratings\": [\n    {\n      \"score\": 5,\n      \"comment\": \"Muy cómodos y el sonido es claro.\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Datos inválidos",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Audífonos inalámbricos NoiseFree\",\n  \"description\": \"Audífonos bluetooth con cancelación de ruido, batería de 30 horas y diseño ergonómico.\",\n  \"price\": 79.99,\n  \"category\": \"Electronics\",\n  \"tags\": [\n    \"audio\",\n    \"wireless\",\n    \"travel\"\n  ],\n  \"inStock\": true,\n  \"specifications\": {\n    \"battery\": \"30h\",\n    \"color\": \"Negro\",\n    \"connectivity\": \"Bluetooth 5.2\"\n  },\n  \"ratings\": [\n    {\n      \"score\": 5,\n      \"comment\": \"Muy cómodos y el sonido es claro.\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/products",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"El campo price debe ser un número mayor o igual a 0.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Obtener todos los productos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "})",
+                  "",
+                  "pm.test('Response time is less than 2000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "})",
+                  "",
+                  "pm.test('Response is JSON', function () {",
+                  "    pm.response.to.be.json;",
+                  "})",
+                  "",
+                  "pm.test('Response is an array', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('array');",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Lista de productos",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"name\": \"Audífonos inalámbricos NoiseFree\",\n    \"description\": \"Audífonos bluetooth con cancelación de ruido, batería de 30 horas y diseño ergonómico.\",\n    \"price\": 79.99,\n    \"category\": \"Electronics\",\n    \"tags\": [\n      \"audio\",\n      \"wireless\",\n      \"travel\"\n    ],\n    \"inStock\": true,\n    \"specifications\": {\n      \"battery\": \"30h\",\n      \"color\": \"Negro\",\n      \"connectivity\": \"Bluetooth 5.2\"\n    },\n    \"ratings\": [\n      {\n        \"score\": 5,\n        \"comment\": \"Muy cómodos y el sonido es claro.\"\n      }\n    ]\n  },\n  {\n    \"name\": \"Mochila Urbana Flex\",\n    \"description\": \"Mochila resistente al agua con compartimento para portátil y múltiples bolsillos organizadores.\",\n    \"price\": 59.9,\n    \"category\": \"Clothes\",\n    \"tags\": [\n      \"travel\",\n      \"office\"\n    ],\n    \"inStock\": true,\n    \"specifications\": {\n      \"material\": \"Nylon\",\n      \"capacity\": \"20L\",\n      \"color\": \"Gris\"\n    },\n    \"ratings\": [\n      {\n        \"score\": 4,\n        \"comment\": \"Buena capacidad y estilo moderno.\"\n      }\n    ]\n  }\n]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Obtener un usuario por id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "})",
+                      "",
+                      "pm.test('Response time is less than 2000ms', function () {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                      "})",
+                      "",
+                      "pm.test('Response is JSON', function () {",
+                      "    pm.response.to.be.json;",
+                      "})",
+                      "",
+                      "pm.test('Response has id field', function () {",
+                      "    const jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('id');",
+                      "})"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "925"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Usuario encontrado",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "925"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"id\": 6045,\n  \"name\": \"string\"\n}"
+                },
+                {
+                  "name": "Usuario no encontrado",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "925"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"message\": \"string\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "actualizar usuario por id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "})",
+                      "",
+                      "pm.test('Response time is less than 2000ms', function () {",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                      "})",
+                      "",
+                      "pm.test('Response is JSON', function () {",
+                      "    pm.response.to.be.json;",
+                      "})",
+                      "",
+                      "pm.test('Response has id field', function () {",
+                      "    const jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('id');",
+                      "})"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"age\": 3751,\n  \"email\": \"TlItMQbw-MLce@REeoSXJwatSLPnc.xedw\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "925"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Usuario actualizado",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"string\",\n  \"age\": 3751,\n  \"email\": \"TlItMQbw-MLce@REeoSXJwatSLPnc.xedw\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "925"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"id\": 582,\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"age\": 2726\n}"
+                },
+                {
+                  "name": "Usuario no encontrado",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"string\",\n  \"age\": 3751,\n  \"email\": \"TlItMQbw-MLce@REeoSXJwatSLPnc.xedw\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "925"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"message\": \"string\"\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Crear un nuevo usuario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "})",
+                  "",
+                  "pm.test('Response time is less than 2000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "})",
+                  "",
+                  "pm.test('Response is JSON', function () {",
+                  "    pm.response.to.be.json;",
+                  "})",
+                  "",
+                  "pm.test('Response has id field', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"string\",\n  \"age\": 5181,\n  \"email\": \"4WIc6uJ@BztPhItgbiurYLXYETIjenffahcPoRnii.ksph\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Usuario creado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"age\": 5181,\n  \"email\": \"4WIc6uJ@BztPhItgbiurYLXYETIjenffahcPoRnii.ksph\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"age\": 4233\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/v1"
+    }
+  ]
+}
