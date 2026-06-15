@@ -9,6 +9,53 @@ components:
   schemas:
     HelloResponse:
       type: object
+    Product:
+      type: object
+      required:
+        - name
+        - price
+        - category
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 40
+        description:
+          type: string
+          maxLength: 500
+        price:
+          type: number
+          minimum: 0
+          multipleOf: 0.01
+        category:
+          type: string
+          enum: [Electronics, Books, Clothes, Food]
+        tags:
+          type: array
+          items:
+            type: string
+          minItems: 1
+        inStock:
+          type: boolean
+        specifications:
+          type: object
+          additionalProperties:
+            type: string
+        ratings:
+          type: array
+          items:
+            type: object
+            required:
+              - score
+              - comment
+            properties:
+              score:
+                type: integer
+                minimum: 1
+                maximum: 5
+              comment:
+                type: string
+                maxLength: 200
 paths:
   /hello:
     get:
@@ -20,9 +67,120 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HelloResponse'
+  /products:
+    post:
+      summary: Crear un nuevo producto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Producto creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Datos inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    get:
+      summary: Obtener todos los productos
+      responses:
+        '200':
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /products/{id}:
+    get:
+      summary: Obtener producto por id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    'put':
+      summary: Actualizar producto por id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Producto actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    'delete':
+      summary: Eliminar producto por id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Producto eliminado
+        '404':
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
   /users:
     post:
-      summary: Crear un nuevo usuaro
+      summary: Crear un nuevo usuario
       requestBody:
         required: true
         content:
