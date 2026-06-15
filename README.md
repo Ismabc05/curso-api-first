@@ -51,4 +51,4 @@ El enfoque API First implica:
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/api-first-platzi.git
+git https://github.com/Ismabc05/curso-api-first.git
